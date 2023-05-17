@@ -1,0 +1,47 @@
+{
+  "name": "git-issue-tracker-fe",
+  "version": "1.0.0",
+  "description": "App for tracking issues from github",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "test",
+    "build": "webpack --mode=development",
+    "build-prod": "webpack --mode=production",
+    "start": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roadie1/git-issue-tracker-fe.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "scss"
+  ],
+  "author": "Roadie1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Roadie1/git-issue-tracker-fe/issues"
+  },
+  "homepage": "https://github.com/Roadie1/git-issue-tracker-fe#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.11.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@types/react-redux": "^7.1.25",
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.1",
+    "sass-loader": "^13.2.2",
+    "style-loader": "^3.3.2",
+    "ts-loader": "^9.4.2",
+    "typescript": "^5.0.4",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
+  }
+}
