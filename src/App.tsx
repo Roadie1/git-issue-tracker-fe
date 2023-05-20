@@ -1,7 +1,13 @@
 import React from 'react';
+import Header from './components/Header';
+import { Outlet } from 'react-router-dom';
+import './app.styles.scss';
 
-export default function App():JSX.Element {
+export default function App(): JSX.Element {
     return (
-        <h1>Github Issue Tracker</h1>
-    );
+        <>
+            <Header/>
+            <Outlet/>
+        </>
+    )
 }

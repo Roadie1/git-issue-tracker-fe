@@ -1,12 +1,14 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+// const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-    entry: './index.tsx',
+    entry: './src/index.tsx',
     devtool: 'inline-source-map',
     output: {
         filename: 'main.js',
-        path: path.resolve(__dirname, 'build')
+        path: path.resolve(__dirname, 'build'),
+        publicPath: '/',
     },
     plugins: [
         new HTMLWebpackPlugin({
@@ -18,6 +20,7 @@ module.exports = {
             directory: path.join(__dirname, "build")
         },
         port: 3000,
+        historyApiFallback: true
     },
     module: {
         rules: [
@@ -39,4 +42,7 @@ module.exports = {
     resolve: {
         extensions: [".ts", ".js", ".tsx"],
     },
+    // plugins: [
+    //     new Dotenv()
+    //   ]
 }

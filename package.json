@@ -7,7 +7,7 @@
     "test": "test",
     "build": "webpack --mode=development",
     "build-prod": "webpack --mode=production",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode=development"
   },
   "repository": {
     "type": "git",
@@ -28,13 +28,15 @@
     "@reduxjs/toolkit": "^1.9.5",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.11.1",
+    "sass": "^1.62.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@types/react-redux": "^7.1.25",
     "css-loader": "^6.7.3",
+    "dotenv-webpack": "^8.0.1",
     "html-webpack-plugin": "^5.5.1",
     "sass-loader": "^13.2.2",
     "style-loader": "^3.3.2",
