@@ -26,6 +26,8 @@
   "homepage": "https://github.com/Roadie1/git-issue-tracker-fe#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "clsx": "^1.2.1",
+    "moment": "^2.29.4",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",

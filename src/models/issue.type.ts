@@ -28,3 +28,11 @@ export interface IssueDTO {
     issues: Issue[];
     metadata: Metadata
 }
+
+export interface IssueUrlParams {
+    user: string,
+    repository: string,
+    page: number,
+    size: number,
+    forced?: boolean
+}

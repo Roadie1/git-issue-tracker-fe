@@ -1,0 +1,32 @@
+.button {
+    cursor: pointer;
+}
+
+.button-primary {
+    background-color: blue;
+
+    &:hover {
+        background-color: lightblue;
+    }
+}
+
+.button-underline {
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    color: rgb(76 149 239);
+
+    &:hover {
+        color: blue;
+    }
+
+    &:disabled {
+        color: black;
+        cursor: default;
+        &:hover {
+            color: black;
+        }
+    }
+}
+
+

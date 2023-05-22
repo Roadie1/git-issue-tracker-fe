@@ -1,0 +1,23 @@
+.paginated-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+
+    .paginated-list__options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+
+        h4 {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .paginated-list__options__size-buttons {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+        }
+    }
+}

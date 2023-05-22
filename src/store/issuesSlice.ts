@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IssueDTO } from "../models/";
-import { searchIssues } from "../api/api";
+import { IssueDTO, IssueUrlParams } from "../models/";
+import { searchIssues } from "../api";
 
 interface IssueState {
     issueDTO: IssueDTO;
@@ -12,19 +12,20 @@ const initialState: IssueState = {
     issueDTO: {
         issues: [],
         metadata: {
-            total: 0,
-            totalPages: 0,
-            page: 0
+            totalCount: 0,
+            size: 10,
+            page: 1,
+            user: '',
+            repository: ''
         }
     },
     status: 'idle',
     error: null
 };
 
-export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (params: { username: string, repository: string, page: number, size: number }) => {
-    const { username, repository, page, size} = params;
-    const result = await searchIssues(username, repository, size, page);
-    console.log(result);
+export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (params: IssueUrlParams) => {
+    const { user, repository, page, size, forced } = params;
+    const result = await searchIssues(user, repository, page, size, forced);
     return result;
 });
 

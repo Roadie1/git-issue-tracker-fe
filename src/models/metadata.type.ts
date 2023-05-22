@@ -1,5 +1,7 @@
 export interface Metadata {
-    total: number;
+    totalCount: number;
     page: number;
-    totalPages: number;
+    size: number;
+    user: string;
+    repository: string;
 }

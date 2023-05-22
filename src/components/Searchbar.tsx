@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import './searchbar.styles.scss';
 import { SearchIcon } from '../icons/Search';
 import { fetchIssues } from '../store/issuesSlice';
-import { useAppDispatch } from '../store';
+import { useAppDispatch } from '../store/hooks';
 
 export default function Searchbar(): JSX.Element {
     const [username, setUsername] = useState('');
@@ -12,11 +12,11 @@ export default function Searchbar(): JSX.Element {
 
     const onSubmit = (e: FormEvent) => {
         e.preventDefault();
-        dispatch(fetchIssues({username, repository, page: 1, size: 10 }));
+        dispatch(fetchIssues({user: username, repository, page: 1, size: 10, forced: true }));
     }
 
     return (
-        <section className='searchbar'>
+        <nav className='searchbar'>
             <p>Type username and repository to get a list of issues</p>
             <form className='searchbar_inputs' onSubmit={onSubmit}>
                 <input type="text" placeholder='Username' onChange={(e) => setUsername(e.target.value)} />
@@ -27,6 +27,6 @@ export default function Searchbar(): JSX.Element {
                     <SearchIcon />
                 </figure>
             </form>
-        </section>
+        </nav>
     );
 }
