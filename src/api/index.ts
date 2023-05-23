@@ -1,5 +1,6 @@
-import { searchIssues } from './api';
+import { searchIssues, fetchStatistics } from './api';
 
 export {
-    searchIssues
+    searchIssues,
+    fetchStatistics
 }

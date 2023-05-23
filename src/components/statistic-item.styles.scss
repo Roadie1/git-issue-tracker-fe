@@ -1,0 +1,14 @@
+.statistic-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 4fr 2fr;
+    align-items: center;
+    gap: 8px;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 8px 16px;
+    
+    p {
+        margin: 0;
+    }
+}
