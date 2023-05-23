@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import Button from './Button';
+import './pagination.styles.scss';
 
 interface PaginationProps {
     onChange: (size: number, page: number) => void;
@@ -9,14 +10,31 @@ interface PaginationProps {
 }
 
 export default function Pagination({ onChange, total, page, size, children }: PropsWithChildren<PaginationProps>): JSX.Element {
-    const totalPages = Math.ceil(total / size);
 
-    const switchSize = (newSize: number) => {
+    const switchSize = (newSize: number): void => {
         onChange(newSize, page);
     }
 
-    const switchPage = (newPage: number) => {
+    const switchPage = (newPage: number): void => {
         onChange(size, newPage);
+    }
+
+    const renderPages = (): JSX.Element[] => {
+        const totalPages = Math.ceil(total / size);
+        if(totalPages <= 1) return [];
+        return Array.from(Array(totalPages)).map((_item, index) => {
+            const pageNumber = index + 1;
+            return (
+                <Button
+                    key={"page" + pageNumber}
+                    type="primary"
+                    active={pageNumber === page}
+                    onClick={() => switchPage(index + 1)}
+                >
+                    {pageNumber}
+                </Button>
+            );
+        });
     }
 
     return (
@@ -32,7 +50,7 @@ export default function Pagination({ onChange, total, page, size, children }: Pr
             </header>
             {children}
             <footer className='paginated-list__pages'>
-                
+                {renderPages()}
             </footer>
         </section>
     )

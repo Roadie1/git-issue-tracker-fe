@@ -1,23 +1,38 @@
+@import '../constants/colors.scss';
+
 .button {
     cursor: pointer;
+    padding: 4px 8px;
 }
 
-.button-primary {
-    background-color: blue;
+.button__primary {
+    background-color: $primary;
+    border: none;
 
     &:hover {
-        background-color: lightblue;
+        background-color: $primary-highlight;
+        color: white;
     }
 }
 
-.button-underline {
+.button__active {
+    background-color: $primary-active;
+    color: white;
+
+    &:hover {
+        background-color: $primary-active;
+        color: white;
+    }
+}
+
+.button__underline {
     background: transparent;
     border: none;
     text-decoration: underline;
-    color: rgb(76 149 239);
+    color: $primary-text;
 
     &:hover {
-        color: blue;
+        color: $primary-text-highlight;
     }
 
     &:disabled {

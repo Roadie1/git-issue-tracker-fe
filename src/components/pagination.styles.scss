@@ -20,4 +20,11 @@
             font-size: 12px;
         }
     }
+
+    .paginated-list__pages {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        margin-top: 8px;
+    }
 }
