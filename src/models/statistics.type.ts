@@ -1,9 +1,14 @@
 import { Metadata } from "./";
 
+export interface SearchParameters {
+    parameter: string;
+    value: string;
+}
+
 export interface Statistic {
     clientIp: string;
     requestType: string;
-    searchParams: string[];
+    searchParams: SearchParameters[];
     requestedAt: Date;
 }
 

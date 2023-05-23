@@ -40,6 +40,12 @@ export default function Staistics(): JSX.Element {
             {statistics && (
                 <Pagination onChange={paginationChange} total={statistics?.metadata.totalCount} page={statistics?.metadata.page} size={statistics?.metadata.size}>
                     <ul className="statistic-list">
+                        <li className='statistic-list__header'>
+                            <span>Client IP</span>
+                            <span>Request type</span>
+                            <span>Request parameters</span>
+                            <span>Requested at</span>
+                        </li>
                         {renderStatistics()}
                     </ul>
                 </Pagination>

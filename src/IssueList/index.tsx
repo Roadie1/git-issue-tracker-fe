@@ -32,7 +32,7 @@ export default function IssueList(): JSX.Element {
             <Searchbar />
             {issuesInfo.issues.length > 0 && (
                 <Pagination onChange={paginationChange} total={issuesInfo.metadata.totalCount} page={issuesInfo.metadata.page} size={issuesInfo.metadata.size}>
-                    <ul className="issue-list_list">
+                    <ul className="issue-list">
                         {renderIssues()}
                     </ul>
                 </Pagination>
