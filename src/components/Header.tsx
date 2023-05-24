@@ -1,13 +1,20 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './header.styles.scss';
 import { GithubIcon } from '../icons/Github';
+import { BackArrow } from '../icons/BackArrow';
 
 
 export default function Header(): JSX.Element {
     const navigate = useNavigate();
+    const location = useLocation();
     return (
-        <header className='Header'>
+        <header className='header'>
+            {location.pathname !== '/' && (
+                <nav className='header__back' onClick={() => navigate(-1)}>
+                    <BackArrow />
+                </nav>
+            )}
             <h1 onClick={() => navigate('/')}>
                 <GithubIcon />
                 Github Issue Tracker

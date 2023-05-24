@@ -1,3 +1,5 @@
+@import '../constants/colors.scss';
+
 .searchbar{
     display: flex;
     flex-direction: column;
@@ -8,8 +10,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid lightgray;
-    background-color: white;
+    border: 1px solid $border-primary;
+    background-color: $background-secondary;
     padding: 4px;
 
     span {

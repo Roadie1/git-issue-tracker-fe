@@ -2,8 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import store from './store/store';
-import IssueDetails from './IssueDetails';
+import store from './store';
+import IssueDetails from './routes/IssueDetails';
 import Staistics from './Statistics';
 import NotFound from './components/NotFound';
 import App from './App';
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
                 element: (<IssueList />)
             },
             {
-                path: 'issue/:issueId',
+                path: 'issue/:user/:repository/:issueNumber',
                 element: (
                     <IssueDetails />
                 )
@@ -42,6 +42,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
-        <RouterProvider router={router} />
+            <RouterProvider router={router} />
     </Provider>
 );

@@ -1,27 +1,24 @@
 import { Metadata } from "./";
 
-interface IssueUserInfo {
+export interface IssueUserInfo {
     login: string;
     avatarUrl: string;
     htmlUrl: string;
 }
 
-interface IssueLabelInfo {
+export interface IssueLabelInfo {
     name: string;
     color: string;
     description: string;
 }
 
 export interface Issue {
-    htmlUrl: string;
     id: string;
     number: number;
     title: string;
     user: IssueUserInfo;
     labels: IssueLabelInfo[];
-    locked: boolean;
     createdAt: string;
-    body: string;
 }
 
 export interface IssueDTO {

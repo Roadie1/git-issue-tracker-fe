@@ -1,6 +1,18 @@
-import { searchIssues, fetchStatistics } from './api';
+import { IssueDTO, IssueDetailsDTO, StatisticsDTO } from "../models";
 
-export {
-    searchIssues,
-    fetchStatistics
+const apiUrl = 'http://localhost:3001/'; // TODO
+
+export async function searchIssues(username: string, repository: string, page: number = 1, size: number = 10, forced: boolean = false): Promise<IssueDTO> {
+    const result = await fetch(`${apiUrl}issues?user=${username}&repository=${repository}&size=${size}&page=${page}&forced=${forced}`, { method: 'GET' });
+    return result.json();
+}
+
+export async function fetchStatistics(page: number = 1, size: number = 10): Promise<StatisticsDTO> {
+    const result = await fetch(`${apiUrl}statistics?size=${size}&page=${page}`, { method: 'GET' });
+    return result.json();
+}
+
+export async function fetchIssuedetails(user: string, repository: string, issueNumber: string): Promise<IssueDetailsDTO> {
+    const result = await fetch(`${apiUrl}issues/details?user=${user}&repository=${repository}&number=${issueNumber}`, { method: 'GET' });
+    return result.json();
 }

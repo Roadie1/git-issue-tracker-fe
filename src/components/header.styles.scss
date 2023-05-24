@@ -1,7 +1,9 @@
-.Header {
+@import '../constants/colors.scss';
+
+.header {
     padding: 32px;
-    background: rgb(36, 41, 47);
-    color: white;
+    background: $background-primary;
+    color: $text-contrast;
     display: flex;
     align-items: center;
 
@@ -14,6 +16,21 @@
     }
 
     a {
-        color: white;
+        color: $text-contrast;
+    }
+
+    .header__back {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        display: flex;
+        border-radius: 24px;
+        background-color: $background-secondary;
+        color: $background-primary;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $border-primary;
+        }
     }
 }

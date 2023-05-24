@@ -9,3 +9,12 @@ body {
 h1 {
     font-size: 32px;
 }
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 960px;
+    min-width: 300px;
+    margin: 0 auto 32px;
+}

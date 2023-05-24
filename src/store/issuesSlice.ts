@@ -45,7 +45,13 @@ export const issueSlice = createSlice({
     }
 });
 
-export const selectIssueByID = (state: IssueDTO, issueId: string) => state.issues.find(issue => issue.id === issueId);
+// const selectIssues = (state: RootState) => state.issues.issueDTO.issues; //TODO: place details in redux?
+// const selectIssueId = (_state: RootState, issueNumber: string) => issueNumber;
+
+// export const selectIssueByID = createSelector([selectIssues, selectIssueId], (issues: Issue[], issueNumber: string) => {
+//     return issues.find(issue => issue.number.toString() === issueNumber);
+// })
+
 
 export const { getIssues } = issueSlice.actions;
 

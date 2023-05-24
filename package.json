@@ -27,6 +27,8 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "clsx": "^1.2.1",
+    "html-react-parser": "^3.0.16",
+    "markdown-it": "^13.0.1",
     "moment": "^2.29.4",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -34,6 +36,7 @@
     "sass": "^1.62.1"
   },
   "devDependencies": {
+    "@types/markdown-it": "^12.2.3",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@types/react-redux": "^7.1.25",
