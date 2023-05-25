@@ -39,7 +39,15 @@ export const issueSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        builder.addCase(fetchIssues.pending, (state, _action) => {
+            state.status = 'loading';
+        });
+        builder.addCase(fetchIssues.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message
+        });
         builder.addCase(fetchIssues.fulfilled, (state, action) => {
+            state.status = 'succeeded'
             state.issueDTO = action.payload;
         });
     }

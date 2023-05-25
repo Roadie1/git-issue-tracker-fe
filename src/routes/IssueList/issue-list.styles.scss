@@ -1,4 +1,4 @@
-@import '../app.styles.scss';
+@import '../../app.styles.scss';
 
 .issue-list {
     display: grid;
@@ -8,4 +8,11 @@
     gap: 4px;
     margin: 0;
     padding: 0;
+
+}
+.issue-list__container {
+    width: 100%;
+    margin-top: 12px;
+    position: relative;
+    min-height: 100px;
 }

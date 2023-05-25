@@ -1,9 +1,13 @@
-@import '../constants/colors.scss';
+@import '../../constants/colors.scss';
 
-.searchbar{
+.searchbar {
     display: flex;
     flex-direction: column;
     text-align: center;
+
+    p {
+        margin-top: 0px;
+    }
 }
 
 .searchbar_inputs {

@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment';
-import { Issue } from '../models';
+import { Issue } from '../../models';
 import './issue-item.styles.scss';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 
 interface IssueItemProps {
     issue: Issue;

@@ -4,10 +4,10 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import store from './store';
 import IssueDetails from './routes/IssueDetails';
-import Staistics from './Statistics';
-import NotFound from './components/NotFound';
+import Staistics from './routes/Statistics';
+import NotFound from './routes/NotFound';
 import App from './App';
-import IssueList from './IssueList';
+import IssueList from './routes/IssueList';
 
 const router = createBrowserRouter([
     {

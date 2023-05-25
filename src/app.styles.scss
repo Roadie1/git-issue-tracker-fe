@@ -11,10 +11,11 @@ h1 {
 }
 
 .page-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 80%;
     max-width: 960px;
     min-width: 300px;
-    margin: 0 auto 32px;
+    margin: 16px auto 32px;
 }

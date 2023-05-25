@@ -1,8 +1,8 @@
 import React, { FormEvent, useState } from 'react';
 import './searchbar.styles.scss';
-import { SearchIcon } from '../icons/Search';
-import { fetchIssues } from '../store/issuesSlice';
-import { useAppDispatch } from '../store/hooks';
+import { SearchIcon } from '../../icons';
+import { fetchIssues } from '../../store/issuesSlice';
+import { useAppDispatch } from '../../store/hooks';
 
 export default function Searchbar(): JSX.Element {
     const [username, setUsername] = useState('');

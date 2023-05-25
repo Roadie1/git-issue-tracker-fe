@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { StatisticsDTO } from '../../models';
+import { fetchStatistics } from '../../api';
+import { Loading, StatisticItem, Pagination } from '../../components';
 import './statistics.styles.scss';
-import { StatisticsDTO } from '../models';
-import Pagination from '../components/Pagination';
-import { fetchStatistics } from '../api';
-import StatisticItem from '../components/StatisticItem';
 
 export default function Staistics(): JSX.Element {
     const [statistics, setStatistics] = useState<StatisticsDTO>();
+    const [loading, setLoading] = useState<boolean>(true);
 
     const getStatistics = async (page?: number, size?: number) => {
         const newStatistics = await fetchStatistics(page, size);
         setStatistics(newStatistics);
-    }
+        setLoading(false);
+    };
 
     useEffect(() => {
         try {
@@ -37,6 +38,11 @@ export default function Staistics(): JSX.Element {
 
     return (
         <main className='page-container'>
+            {loading && (
+                <div className="loading-container">
+                    <Loading size={40} />
+                </div>
+            )}
             {statistics && (
                 <Pagination onChange={paginationChange} total={statistics?.metadata.totalCount} page={statistics?.metadata.page} size={statistics?.metadata.size}>
                     <ul className="statistic-list">

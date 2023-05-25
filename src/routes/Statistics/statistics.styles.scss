@@ -1,5 +1,5 @@
-@import '../app.styles.scss';
-@import '../constants/colors.scss';
+@import '../../app.styles.scss';
+@import '../../constants/colors.scss';
 
 .statistic-list {
     display: grid;
@@ -24,4 +24,8 @@
             border-right: 1px solid $border-primary;
         }
     }
+}
+.loading-container {
+    position: relative;
+    height: 50vh;
 }

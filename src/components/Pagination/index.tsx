@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import Button from './Button';
+import { Button } from '../';
 import './pagination.styles.scss';
 
 interface PaginationProps {
@@ -12,7 +12,7 @@ interface PaginationProps {
 export default function Pagination({ onChange, total, page, size, children }: PropsWithChildren<PaginationProps>): JSX.Element {
 
     const switchSize = (newSize: number): void => {
-        onChange(newSize, page);
+        onChange(newSize, 1);
     }
 
     const switchPage = (newPage: number): void => {

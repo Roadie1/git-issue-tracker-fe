@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './header.styles.scss';
-import { GithubIcon } from '../icons/Github';
-import { BackArrow } from '../icons/BackArrow';
+import { BackArrow, GithubIcon } from '../../icons';
 
 
 export default function Header(): JSX.Element {

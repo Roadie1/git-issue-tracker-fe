@@ -4,7 +4,7 @@
 .issue-details__header {
     display: flex;
     flex-direction: column;
-    margin: 16px 0;
+    margin-bottom: 16px;
     padding: 8px 0;
     border-bottom: 1px solid $border-primary;
 
@@ -54,7 +54,7 @@
     --extras-width: 296px;
 
     display: grid;
-    grid-template-columns: minmax(0, calc(100% - var(--extras-width))) 0 auto;
+    grid-template-columns: minmax(0, calc(100% - var(--extras-width))) auto;
     gap: 16px;
 
     .issue-details__body {
@@ -124,6 +124,12 @@
         }
     }
 }
+
+.loading-container {
+    position: relative;
+    height: 50vh;
+}
+
 
 @media screen and (max-width: 1218px) {
     .issue-details {
