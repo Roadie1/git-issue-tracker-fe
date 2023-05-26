@@ -4,14 +4,12 @@ const apiUrl = 'http://localhost:3001/'; // TODO
 
 class Api {
     private async execute<T>(url: string, options: RequestInit): Promise<T> {
-        try {
-            const result = await fetch(url, options);
-            if (!result.ok) throw new Error('Something went wrong');
-            return result.json();
+        const response = await fetch(url, options);
+        const result = await response.json();
+        if (!response.ok) {
+            throw { status: response.status, message: result.message };
         }
-        catch (err) {
-            throw new Error('Connection refused');
-        }
+        return result;
     }
     public async searchIssues(username: string, repository: string, page: number = 1, size: number = 10, forced: boolean = false): Promise<IssueDTO> {
         return this.execute(`${apiUrl}issues?user=${username}&repository=${repository}&size=${size}&page=${page}&forced=${forced}`, { method: 'GET' });

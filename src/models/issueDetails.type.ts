@@ -13,3 +13,9 @@ export interface IssueDetailsDTO {
     state: string;
     assignees: IssueUserInfo[];
 }
+
+export interface DetailsUrlParams {
+    user: string,
+    repository: string,
+    issueNumber: string
+}

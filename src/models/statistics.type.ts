@@ -16,3 +16,8 @@ export interface StatisticsDTO {
     statistics: Statistic[];
     metadata: Metadata;
 }
+
+export interface StatisticsUrlParams {
+    page: number;
+    size: number;
+}

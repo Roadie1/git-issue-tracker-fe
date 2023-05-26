@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import './searchbar.styles.scss';
 import { SearchIcon } from '../../icons';
 import { fetchIssues } from '../../store/issuesSlice';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useNavigate } from 'react-router-dom';
 
 export default function Searchbar(): JSX.Element {
@@ -10,11 +10,14 @@ export default function Searchbar(): JSX.Element {
     const [repository, setRepository] = useState('');
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const issueStatus = useAppSelector(state => state.issues.status);
 
 
     const onSubmit = (e: FormEvent) => {
         e.preventDefault();
-        dispatch(fetchIssues({ user: username, repository, page: 1, size: 10, forced: true })).unwrap().catch(() => navigate('/error'));
+        if(issueStatus !== 'loading') {
+            dispatch(fetchIssues({ user: username, repository, page: 1, size: 10, forced: true })).unwrap().catch(() => navigate('/error'));
+        }
     }
 
     return (

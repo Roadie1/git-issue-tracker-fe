@@ -1,11 +1,11 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IssueDTO, IssueUrlParams } from "../models/";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ApiError, IssueDTO, IssueUrlParams } from "../models/";
 import api from "../api";
 
 interface IssueState {
     issueDTO: IssueDTO;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
-    error: string | null
+    error: ApiError
 }
 
 const initialState: IssueState = {
@@ -20,31 +20,32 @@ const initialState: IssueState = {
         }
     },
     status: 'idle',
-    error: null
+    error: { status: 0, message: '' }
 };
 
-export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (params: IssueUrlParams) => {
-    const { user, repository, page, size, forced } = params;
-    const result = await api.searchIssues(user, repository, page, size, forced);
-    return result;
+export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (params: IssueUrlParams, { rejectWithValue }) => {
+    try {
+        const { user, repository, page, size, forced } = params;
+        const result = await api.searchIssues(user, repository, page, size, forced);
+        return result;
+    }
+    catch (err) {
+        throw rejectWithValue(err.status ? err : { message: "Something went wrong" });
+    }
 });
 
 
 export const issueSlice = createSlice({
     name: "issues",
     initialState,
-    reducers: {
-        getIssues: (state, action: PayloadAction<IssueDTO>) => {
-            state.issueDTO = action.payload;
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchIssues.pending, (state, _action) => {
             state.status = 'loading';
         });
         builder.addCase(fetchIssues.rejected, (state, action) => {
             state.status = 'failed';
-            state.error = action.error.message
+            state.error = action.payload as ApiError;
         });
         builder.addCase(fetchIssues.fulfilled, (state, action) => {
             state.status = 'succeeded'
@@ -52,7 +53,5 @@ export const issueSlice = createSlice({
         });
     }
 });
-
-export const { getIssues } = issueSlice.actions;
 
 export default issueSlice.reducer;
