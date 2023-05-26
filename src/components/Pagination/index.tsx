@@ -10,7 +10,6 @@ interface PaginationProps {
 }
 
 export default function Pagination({ onChange, total, page, size, children }: PropsWithChildren<PaginationProps>): JSX.Element {
-
     const switchSize = (newSize: number): void => {
         onChange(newSize, 1);
     }
@@ -19,22 +18,47 @@ export default function Pagination({ onChange, total, page, size, children }: Pr
         onChange(size, newPage);
     }
 
-    const renderPages = (): JSX.Element[] => {
-        const totalPages = Math.ceil(total / size);
-        if(totalPages <= 1) return [];
-        return Array.from(Array(totalPages)).map((_item, index) => {
-            const pageNumber = index + 1;
-            return (
-                <Button
-                    key={"page" + pageNumber}
-                    type="primary"
-                    active={pageNumber === page}
-                    onClick={() => switchPage(index + 1)}
-                >
-                    {pageNumber}
-                </Button>
-            );
-        });
+    const renderPageButton = (pageNumber: number): JSX.Element => {
+        return (
+            <Button
+                key={"page" + pageNumber}
+                type="primary"
+                active={pageNumber === page}
+                onClick={() => switchPage(pageNumber + 1)}
+            >
+                {pageNumber}
+            </Button>
+        );
+    }
+    const renderElipsis = (): JSX.Element => {
+        return (
+            <Button
+                key="page-skip"
+                type="primary"
+                disabled
+                onClick={() => { }}
+            >
+                ...
+            </Button>
+        )
+    }
+
+    const getPaginationButtons = (current: number, max: number, offset: number): JSX.Element[] => {
+        const buttons = [];
+        for (let i = 1; i <= max ; i++) {
+            if (i < current - offset && i > 1) {
+                i = current - offset - 1;
+                buttons.push(renderElipsis());
+                continue;
+            }
+            if (i > current + offset && i < max) {
+                i = max - 1;
+                buttons.push(renderElipsis());
+                continue;
+            }
+            buttons.push(renderPageButton(i));
+        }
+        return buttons;
     }
 
     return (
@@ -50,7 +74,7 @@ export default function Pagination({ onChange, total, page, size, children }: Pr
             </header>
             {children}
             <footer className='paginated-list__pages'>
-                {renderPages()}
+                {getPaginationButtons(page, Math.ceil(total / size), 2)}
             </footer>
         </section>
     )

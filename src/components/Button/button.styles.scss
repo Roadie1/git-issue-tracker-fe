@@ -1,15 +1,18 @@
 @import '../../constants/colors.scss';
 
 .button {
-    cursor: pointer;
     padding: 4px 8px;
+
+    &:enabled {
+        cursor: pointer;
+    }
 }
 
 .button__primary {
     background-color: $primary;
     border: none;
 
-    &:hover {
+    &:hover:enabled {
         background-color: $primary-highlight;
         color: white;
     }
@@ -19,7 +22,7 @@
     background-color: $primary-active;
     color: white;
 
-    &:hover {
+    &:hover:enabled {
         background-color: $primary-active;
         color: white;
     }
@@ -31,16 +34,13 @@
     text-decoration: underline;
     color: $primary-text;
 
-    &:hover {
+    &:hover:enabled {
         color: $primary-text-highlight;
     }
 
     &:disabled {
         color: black;
         cursor: default;
-        &:hover {
-            color: black;
-        }
     }
 }
 
