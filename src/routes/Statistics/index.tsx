@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StatisticsDTO } from '../../models';
-import { fetchStatistics } from '../../api';
+import api from '../../api';
 import { Loading, StatisticItem, Pagination } from '../../components';
 import './statistics.styles.scss';
 
 export default function Staistics(): JSX.Element {
     const [statistics, setStatistics] = useState<StatisticsDTO>();
     const [loading, setLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     const getStatistics = async (page?: number, size?: number) => {
-        const newStatistics = await fetchStatistics(page, size);
-        setStatistics(newStatistics);
-        setLoading(false);
+        try {
+            const newStatistics = await api.fetchStatistics(page, size);
+            setStatistics(newStatistics);
+            setLoading(false);
+        }
+        catch (err) {
+            navigate('/error');
+        }
     };
 
     useEffect(() => {
-        try {
-            getStatistics(1, 10);
-        }
-        catch (err) {
-            console.log(err); // TODO
-        }
+        getStatistics(1, 10);
     }, []);
 
     const renderStatistics = (): JSX.Element[] => {
@@ -32,7 +34,7 @@ export default function Staistics(): JSX.Element {
     }
 
     const paginationChange = async (size: number, page: number): Promise<void> => {
-        const newStatistics = await fetchStatistics(page, size);
+        const newStatistics = await api.fetchStatistics(page, size);
         setStatistics(newStatistics);
     }
 

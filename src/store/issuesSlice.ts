@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IssueDTO, IssueUrlParams } from "../models/";
-import { searchIssues } from "../api";
+import api from "../api";
 
 interface IssueState {
     issueDTO: IssueDTO;
@@ -25,7 +25,7 @@ const initialState: IssueState = {
 
 export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (params: IssueUrlParams) => {
     const { user, repository, page, size, forced } = params;
-    const result = await searchIssues(user, repository, page, size, forced);
+    const result = await api.searchIssues(user, repository, page, size, forced);
     return result;
 });
 
@@ -52,14 +52,6 @@ export const issueSlice = createSlice({
         });
     }
 });
-
-// const selectIssues = (state: RootState) => state.issues.issueDTO.issues; //TODO: place details in redux?
-// const selectIssueId = (_state: RootState, issueNumber: string) => issueNumber;
-
-// export const selectIssueByID = createSelector([selectIssues, selectIssueId], (issues: Issue[], issueNumber: string) => {
-//     return issues.find(issue => issue.number.toString() === issueNumber);
-// })
-
 
 export const { getIssues } = issueSlice.actions;
 

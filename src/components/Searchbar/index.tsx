@@ -3,16 +3,18 @@ import './searchbar.styles.scss';
 import { SearchIcon } from '../../icons';
 import { fetchIssues } from '../../store/issuesSlice';
 import { useAppDispatch } from '../../store/hooks';
+import { useNavigate } from 'react-router-dom';
 
 export default function Searchbar(): JSX.Element {
     const [username, setUsername] = useState('');
     const [repository, setRepository] = useState('');
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
 
     const onSubmit = (e: FormEvent) => {
         e.preventDefault();
-        dispatch(fetchIssues({user: username, repository, page: 1, size: 10, forced: true }));
+        dispatch(fetchIssues({ user: username, repository, page: 1, size: 10, forced: true })).unwrap().catch(() => navigate('/error'));
     }
 
     return (
@@ -22,7 +24,7 @@ export default function Searchbar(): JSX.Element {
                 <input type="text" placeholder='Username' onChange={(e) => setUsername(e.target.value)} />
                 <span>/</span>
                 <input type="text" placeholder='Repository' onChange={(e) => setRepository(e.target.value)} />
-                <input type="submit" hidden/>
+                <input type="submit" hidden />
                 <figure className="searchbar_button" onClick={onSubmit}>
                     <SearchIcon />
                 </figure>

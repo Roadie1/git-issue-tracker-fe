@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import MarkdownIt from 'markdown-it';
 import parse from 'html-react-parser';
 import './issue-details.styles.scss';
 import { IssueDetailsDTO } from '../../models';
-import { fetchIssuedetails } from '../../api';
+import api from '../../api';
 import { Loading } from '../../components';
 
 export default function IssueDetails(): JSX.Element {
     const { user, repository, issueNumber, } = useParams();
     const [issue, setIssue] = useState<IssueDetailsDTO>();
     const [loading, setLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     const getIssueDetails = async () => {
-        const result = await fetchIssuedetails(user, repository, issueNumber);
-        setIssue(result);
-        setLoading(false);
+        try {
+            const result = await api.fetchIssueDetails(user, repository, issueNumber);
+            setIssue(result);
+            setLoading(false);
+        }
+        catch (err) {
+            navigate('/error');
+        }
     }
     const md = new MarkdownIt();
 
     useEffect(() => {
-        try {
-            getIssueDetails();
-        }
-        catch (err) {
-            console.log(err); // TODO
-        }
+        getIssueDetails();
     }, []);
 
     const renderAssignees = (): JSX.Element[] => {

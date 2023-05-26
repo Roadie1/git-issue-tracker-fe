@@ -8,6 +8,7 @@ import Staistics from './routes/Statistics';
 import NotFound from './routes/NotFound';
 import App from './App';
 import IssueList from './routes/IssueList';
+import Error from './routes/Error';
 
 const router = createBrowserRouter([
     {
@@ -22,16 +23,16 @@ const router = createBrowserRouter([
             },
             {
                 path: 'issue/:user/:repository/:issueNumber',
-                element: (
-                    <IssueDetails />
-                )
+                element: (<IssueDetails />)
             },
             {
                 path: 'statistics',
-                element: (
-                    <Staistics />
-                )
+                element: (<Staistics />)
             },
+            {
+                path: '/error',
+                element: (<Error />)
+            }
         ]
     },
     {
@@ -42,6 +43,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
-            <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </Provider>
 );
