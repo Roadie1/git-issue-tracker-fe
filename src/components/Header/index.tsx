@@ -15,7 +15,9 @@ export default function Header(): JSX.Element {
                 </nav>
             )}
             <h1 onClick={() => navigate('/')}>
+                <div className="header__icon">
                 <GithubIcon />
+                </div>
                 Github Issue Tracker
             </h1>
             <NavLink to="/statistics">Statistics</NavLink>

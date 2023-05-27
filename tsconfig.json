@@ -2,13 +2,18 @@
     "compilerOptions": {
         "outDir": "./build/",
         "noImplicitAny": true,
+        "lib": [
+            "es6",
+            "es2017",
+            "dom"
+        ],
         "module": "es6",
         "target": "es5",
         "jsx": "react",
         "allowJs": true,
         "moduleResolution": "node",
         "sourceMap": true,
-        "allowSyntheticDefaultImports":true
+        "allowSyntheticDefaultImports": true
     },
     "exclude": [
         "node_modules"

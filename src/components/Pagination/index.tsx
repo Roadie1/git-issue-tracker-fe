@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react';
+import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 import { Button } from '../';
 import './pagination.styles.scss';
 
@@ -10,6 +11,7 @@ interface PaginationProps {
 }
 
 export default function Pagination({ onChange, total, page, size, children }: PropsWithChildren<PaginationProps>): JSX.Element {
+    const windowSize = useWindowDimensions();
     const switchSize = (newSize: number): void => {
         onChange(newSize, 1);
     }
@@ -24,16 +26,16 @@ export default function Pagination({ onChange, total, page, size, children }: Pr
                 key={"page" + pageNumber}
                 type="primary"
                 active={pageNumber === page}
-                onClick={() => switchPage(pageNumber + 1)}
+                onClick={() => switchPage(pageNumber)}
             >
                 {pageNumber}
             </Button>
         );
     }
-    const renderElipsis = (): JSX.Element => {
+    const renderElipsis = (pageNumber: number): JSX.Element => {
         return (
             <Button
-                key="page-skip"
+                key={"page" + pageNumber}
                 type="primary"
                 disabled
                 onClick={() => { }}
@@ -45,15 +47,15 @@ export default function Pagination({ onChange, total, page, size, children }: Pr
 
     const getPaginationButtons = (current: number, max: number, offset: number): JSX.Element[] => {
         const buttons = [];
-        for (let i = 1; i <= max ; i++) {
+        for (let i = 1; i <= max; i++) {
             if (i < current - offset && i > 1) {
                 i = current - offset - 1;
-                buttons.push(renderElipsis());
+                buttons.push(renderElipsis(i));
                 continue;
             }
             if (i > current + offset && i < max) {
                 i = max - 1;
-                buttons.push(renderElipsis());
+                buttons.push(renderElipsis(i));
                 continue;
             }
             buttons.push(renderPageButton(i));
@@ -74,7 +76,7 @@ export default function Pagination({ onChange, total, page, size, children }: Pr
             </header>
             {children}
             <footer className='paginated-list__pages'>
-                {getPaginationButtons(page, Math.ceil(total / size), 2)}
+                {getPaginationButtons(page, Math.ceil(total / size), windowSize.width > 500 ? 2 : 1)}
             </footer>
         </section>
     )

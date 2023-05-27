@@ -6,6 +6,7 @@
     color: $text-contrast;
     display: flex;
     align-items: center;
+    text-align: center;
 
     h1 {
         margin: 0 auto 0;
@@ -13,13 +14,23 @@
         gap: 8px;
         align-items: center;
         cursor: pointer;
+        font-size: 1.5em;
+
+    }
+
+    .header__icon {
+        display: flex;
+        width: 32px;
     }
 
     a {
         color: $text-contrast;
+        margin-left: 8px;
+
     }
 
     .header__back {
+        z-index: 1000;
         position: fixed;
         top: 16px;
         left: 16px;
@@ -31,6 +42,14 @@
 
         &:hover {
             background-color: $border-primary;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .header {
+        .header__icon {
+            width: 24px;
         }
     }
 }
