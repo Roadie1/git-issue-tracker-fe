@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Loading, StatisticItem, Pagination } from '../../components';
+import { Loading, Pagination } from '../../components';
 import './statistics.styles.scss';
 import { fetchStatistics } from '../../store/statisticsSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import moment from 'moment';
 
 export default function Staistics(): JSX.Element {
     const dispatch = useAppDispatch();
@@ -17,7 +18,16 @@ export default function Staistics(): JSX.Element {
     const renderStatistics = (): JSX.Element[] => {
         return statistics.statistics.map((statistic, index) => {
             return (
-                <StatisticItem key={`statistic-${index}`} statistic={statistic} />
+                <li className='statistic-list__item' key={`statistic-${index}`}>
+                    <span className='attribute ip' data-name="Client IP:">{statistic.clientIp}</span>
+                    <span className='attribute type' data-name="Request type:">{statistic.requestType}</span>
+                    <span className='attribute parameters' data-name="Request parameters:">
+                        {statistic.searchParams.map((param) => `${param.parameter}: ${param.value}`).join(', ')}
+                    </span>
+                    <span className='attribute date' data-name="Requested at:">
+                        {moment(statistic.requestedAt).format('DD.MM.YY, HH:mm:ss')}
+                        </span>
+                </li>
             )
         })
     }
@@ -38,11 +48,11 @@ export default function Staistics(): JSX.Element {
             {status === 'succeeded' && (
                 <Pagination onChange={paginationChange} total={statistics?.metadata.totalCount} page={statistics?.metadata.page} size={statistics?.metadata.size}>
                     <ul className="statistic-list">
-                        <li className='statistic-list__header'>
-                            <span>Client IP</span>
-                            <span>Request type</span>
-                            <span>Request parameters</span>
-                            <span>Requested at</span>
+                        <li className='statistic-list__header statistic-list__item'>
+                            <span className='attribute ip'>Client IP</span>
+                            <span className='attribute type'>Request type</span>
+                            <span className='attribute parameters'>Request parameters</span>
+                            <span className='attribute date'>Requested at</span>
                         </li>
                         {renderStatistics()}
                     </ul>
