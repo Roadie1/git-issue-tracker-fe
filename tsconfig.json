@@ -12,10 +12,10 @@
         "jsx": "react",
         "allowJs": true,
         "moduleResolution": "node",
-        "sourceMap": true,
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "isolatedModules": true,
+        "noEmit": true
     },
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules"],
 }

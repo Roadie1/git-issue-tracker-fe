@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ApiError, StatisticsDTO, StatisticsUrlParams } from "../models/";
 import api from "../api";
 
-interface StatisticsState {
+export interface StatisticsState {
     statistics: StatisticsDTO;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: ApiError
@@ -40,14 +40,14 @@ export const statisticsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchStatistics.pending, (state, _action) => {
+        builder.addCase(fetchStatistics.pending, (state: StatisticsState, _action: PayloadAction) => {
             state.status = 'loading';
         });
-        builder.addCase(fetchStatistics.rejected, (state, action) => {
+        builder.addCase(fetchStatistics.rejected, (state: StatisticsState, action: PayloadAction<unknown>) => {
             state.status = 'failed';
             state.error = action.payload as ApiError;
         });
-        builder.addCase(fetchStatistics.fulfilled, (state, action) => {
+        builder.addCase(fetchStatistics.fulfilled, (state: StatisticsState, action: PayloadAction<StatisticsDTO>) => {
             state.status = 'succeeded'
             state.statistics = action.payload;
         });

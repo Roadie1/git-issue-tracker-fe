@@ -4,7 +4,7 @@ import { Statistic, StatisticsDTO, SearchParameters, StatisticsUrlParams } from 
 import { IssueDetailsDTO, DetailsUrlParams } from './issueDetails.type';
 import { ApiError } from "./error.type";
 
-export {
+export type {
     IssueDTO,
     Issue,
     Metadata,

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import moment from 'moment';
+import { useNavigate, useParams } from 'react-router-dom';
 import MarkdownIt from 'markdown-it';
 import parse from 'html-react-parser';
 import './issue-details.styles.scss';
-import { IssueDetailsDTO } from '../../models';
-import api from '../../api';
 import { Loading } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchDetails } from '../../store/issueDetailsSlice';
