@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ApiError, DetailsUrlParams, IssueDetailsDTO } from "../models/";
-import api from "../api";
+import Api from "../api";
 
 export interface IssueDetailsState {
     details: IssueDetailsDTO;
@@ -27,17 +27,18 @@ const initialState: IssueDetailsState = {
         assignees: []
     },
     status: 'idle',
-    error: { status: 0, message: '' }
+    error: { status: 0, message: '', name: '' }
 };
 
 export const fetchDetails = createAsyncThunk('issueDetails/fetchDetails', async (params: DetailsUrlParams, { rejectWithValue }) => {
     try {
         const { user, repository, issueNumber } = params;
-        const result = await api.fetchIssueDetails(user, repository, issueNumber);
+        const result = await Api.fetchIssueDetails(user, repository, issueNumber);
         return result;
     }
-    catch (err) {
-        throw rejectWithValue(err.status ? err : { message: "Something went wrong" });
+    catch (err: unknown) {
+        const error = err as ApiError;
+        throw rejectWithValue(error.status ? error : { message: "Something went wrong" });
     }
 });
 
@@ -47,7 +48,7 @@ export const issueDetailsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchDetails.pending, (state: IssueDetailsState, _action: PayloadAction) => {
+        builder.addCase(fetchDetails.pending, (state: IssueDetailsState) => {
             state.status = 'loading';
         });
         builder.addCase(fetchDetails.rejected, (state: IssueDetailsState, action: PayloadAction<unknown>) => {

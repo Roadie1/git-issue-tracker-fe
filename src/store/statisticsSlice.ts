@@ -1,6 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ApiError, StatisticsDTO, StatisticsUrlParams } from "../models/";
-import api from "../api";
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { ApiError, StatisticsDTO, StatisticsUrlParams } from '../models';
+import Api from '../api';
 
 export interface StatisticsState {
     statistics: StatisticsDTO;
@@ -20,17 +20,18 @@ const initialState: StatisticsState = {
         },
     },
     status: 'idle',
-    error: { status: 0, message: '' }
+    error: { status: 0, message: '', name: '' }
 };
 
 export const fetchStatistics = createAsyncThunk('statistics/fetchStatistics', async (params: StatisticsUrlParams, { rejectWithValue }) => {
     try {
         const { page, size } = params;
-        const result = await api.fetchStatistics(page, size);
+        const result = await Api.fetchStatistics(page, size);
         return result;
     }
-    catch (err) {
-        throw rejectWithValue(err.status ? err : { message: "Something went wrong" });
+    catch (err: unknown) {
+        const error = err as ApiError;
+        throw rejectWithValue(error.status ? error : { message: "Something went wrong" });
     }
 });
 
@@ -40,7 +41,7 @@ export const statisticsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchStatistics.pending, (state: StatisticsState, _action: PayloadAction) => {
+        builder.addCase(fetchStatistics.pending, (state: StatisticsState) => {
             state.status = 'loading';
         });
         builder.addCase(fetchStatistics.rejected, (state: StatisticsState, action: PayloadAction<unknown>) => {

@@ -1,35 +1,35 @@
-import { Metadata } from "./";
+import { Metadata } from './metadata.type';
 
 export interface IssueUserInfo {
-    login: string;
-    avatarUrl: string;
-    htmlUrl: string;
+  login: string;
+  avatarUrl: string;
+  htmlUrl: string;
 }
 
 export interface IssueLabelInfo {
-    name: string;
-    color: string;
-    description: string;
+  name: string;
+  color: string;
+  description: string;
 }
 
 export interface Issue {
-    id: string;
-    number: number;
-    title: string;
-    user: IssueUserInfo;
-    labels: IssueLabelInfo[];
-    createdAt: string;
+  id: string;
+  number: number;
+  title: string;
+  user: IssueUserInfo;
+  labels: IssueLabelInfo[];
+  createdAt: string;
 }
 
 export interface IssueDTO {
-    issues: Issue[];
-    metadata: Metadata
+  issues: Issue[];
+  metadata: Metadata
 }
 
 export interface IssueUrlParams {
-    user: string,
-    repository: string,
-    page: number,
-    size: number,
-    forced?: boolean
+  user: string,
+  repository: string,
+  page: number,
+  size: number,
+  forced?: boolean
 }
