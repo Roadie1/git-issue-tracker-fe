@@ -8,7 +8,6 @@ import Staistics from './routes/Statistics';
 import NotFound from './routes/NotFound';
 import App from './App';
 import IssueList from './routes/IssueList';
-import Error from './routes/Error';
 
 const router = createBrowserRouter([
     {
@@ -28,10 +27,6 @@ const router = createBrowserRouter([
             {
                 path: 'statistics',
                 element: (<Staistics />)
-            },
-            {
-                path: '/error',
-                element: (<Error />)
             }
         ]
     },

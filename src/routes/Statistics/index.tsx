@@ -1,18 +1,32 @@
-import React, { useCallback, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import moment from 'moment';
 import { Loading, Pagination } from '../../components';
 import './statistics.styles.scss';
-import { fetchStatistics } from '../../store/statisticsSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import moment from 'moment';
+import { ApiError, StatisticsDTO } from '../../models';
+import Api from '../../api';
+import { useAppDispatch } from '../../store/hooks';
+import { showModal } from '../../store/modalSlice';
 
 export default function Staistics(): JSX.Element {
-    const dispatch = useAppDispatch();
-    const { statistics, status } = useAppSelector(state => state.statistics);
-    const navigate = useNavigate();
+    const [statistics, setStatistics] = useState<StatisticsDTO>();
+    const [loading, setLoading] = useState<boolean>(true);
+    const dispatch = useAppDispatch()
+
+    const getStatistics = async (page?: number, size?: number) => {
+        try {
+            const newStatistics = await Api.fetchStatistics(page, size);
+            setStatistics(newStatistics);
+            setLoading(false);
+        }
+        catch (err: unknown) {
+            const error = err as ApiError;
+            setLoading(false);
+            dispatch(showModal({ title: `Error ${error.status || ''}`, message: error.message }));
+        }
+    };
 
     useEffect(() => {
-        dispatch(fetchStatistics({ page: 1, size: 10 })).unwrap().catch(() => navigate('/error'));
+        void getStatistics(1, 10);
     }, []);
 
     const renderStatistics = (): JSX.Element[] => {
@@ -26,27 +40,33 @@ export default function Staistics(): JSX.Element {
                     </span>
                     <span className='attribute date' data-name="Requested at:">
                         {moment(statistic.requestedAt).format('DD.MM.YY, HH:mm:ss')}
-                        </span>
+                    </span>
                 </li>
             )
         })
     }
 
-    const paginationChange = useCallback((size: number, page: number): void => {
-        if (status !== 'loading') {
-            dispatch(fetchStatistics({ page, size })).unwrap().catch(() => navigate('/error'));
+    const paginationChange = useCallback(async (size: number, page: number): Promise<void> => {
+        if (!loading) {
+            const newStatistics = await Api.fetchStatistics(page, size);
+            setStatistics(newStatistics);
         }
-    }, []);
+    }, [loading]);
 
     return (
         <main className='page-container'>
-            {status === 'loading' && (
+            {loading && (
                 <div className="loading-container">
                     <Loading size={40} />
                 </div>
             )}
-            {status === 'succeeded' && (
-                <Pagination onChange={paginationChange} total={statistics?.metadata.totalCount} page={statistics?.metadata.page} size={statistics?.metadata.size}>
+            {!loading && statistics && (
+                <Pagination
+                    onChange={(size, page) => void paginationChange(size, page)}
+                    total={statistics?.metadata.totalCount}
+                    page={statistics?.metadata.page}
+                    size={statistics?.metadata.size}
+                >
                     <ul className="statistic-list">
                         <li className='statistic-list__header statistic-list__item'>
                             <span className='attribute ip'>Client IP</span>

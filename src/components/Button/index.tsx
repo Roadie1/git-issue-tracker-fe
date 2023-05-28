@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from 'react';
 import './button.styles.scss';
 
 interface ButtonProps {
-  type: 'underline' | 'primary',
+  type?: 'underline' | 'primary'| 'transparent',
   active?: boolean,
   disabled?: boolean,
   onClick: () => void

@@ -11,4 +11,7 @@ module.exports = {
     project: './tsconfig.json',
   },
   ignorePatterns: ['**/node_modules/**', '**/build/**', 'webpack.config.js'],
+  rules: {
+    '@typescript-eslint/no-floating-promises': 0
+  }
 };

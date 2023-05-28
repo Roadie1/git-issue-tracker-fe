@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import moment from 'moment';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import MarkdownIt from 'markdown-it';
 import parse from 'html-react-parser';
 import './issue-details.styles.scss';
@@ -12,12 +12,13 @@ export default function IssueDetails(): JSX.Element {
     const { user, repository, issueNumber } = useParams();
     const { details, status } = useAppSelector(state => state.issueDetails);
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     const md = new MarkdownIt();
 
     useEffect(() => {
-        dispatch(fetchDetails({ user, repository, issueNumber })).unwrap().catch(() => navigate('/error'));
+        if (details.number !== Number(issueNumber)) {
+            dispatch(fetchDetails({ user, repository, issueNumber }));
+        }
     }, []);
 
     const renderAssignees = (): JSX.Element[] => {
@@ -56,36 +57,38 @@ export default function IssueDetails(): JSX.Element {
                 </div>
             )
         }
-        return (
-            <>
-                <header className="issue-details__header">
-                    <h1 className="issue-details__title">
-                        {details.title}
-                        <span> #{details.number}</span>
-                    </h1>
-                    <p className="issue-details__info">
-                        <span>Status: {details.state}</span>
-                        <span>
-                            <img className="issue-details__avatar" src={details.user.avatarUrl} alt={details.user.login} title={details.user.login} />
-                            <b>{details.user.login}</b> opened this issue on {moment(details.createdAt).format('MMM DD')}
-                        </span>
-                    </p>
-                </header>
-                <article className="issue-details">
-                    <section className="issue-details__body">{renderBody()}</section>
-                    <section className="issue-details__extra">
-                        <div className='issue-details___extra-item'>
-                            <h5>Assignees</h5>
-                            <p>{details.assignees.length === 0 ? 'No one assigned' : renderAssignees()}</p>
-                        </div>
-                        <div className='issue-details___extra-item'>
-                            <h5>Labels</h5>
-                            <p>{details.labels.length === 0 ? 'None yet' : renderLabels()}</p>
-                        </div>
-                    </section>
-                </article>
-            </>
-        );
+        if (details?.number) {
+            return (
+                <>
+                    <header className="issue-details__header">
+                        <h1 className="issue-details__title">
+                            {details.title}
+                            <span> #{details.number}</span>
+                        </h1>
+                        <p className="issue-details__info">
+                            <span>Status: {details.state}</span>
+                            <span>
+                                <img className="issue-details__avatar" src={details.user.avatarUrl} alt={details.user.login} title={details.user.login} />
+                                <b>{details.user.login}</b> opened this issue on {moment(details.createdAt).format('MMM DD')}
+                            </span>
+                        </p>
+                    </header>
+                    <article className="issue-details">
+                        <section className="issue-details__body">{renderBody()}</section>
+                        <section className="issue-details__extra">
+                            <div className='issue-details___extra-item'>
+                                <h5>Assignees</h5>
+                                <p>{details.assignees.length === 0 ? 'No one assigned' : renderAssignees()}</p>
+                            </div>
+                            <div className='issue-details___extra-item'>
+                                <h5>Labels</h5>
+                                <p>{details.labels.length === 0 ? 'None yet' : renderLabels()}</p>
+                            </div>
+                        </section>
+                    </article>
+                </>
+            );
+        }
     }
     return (
         <main className="page-container">

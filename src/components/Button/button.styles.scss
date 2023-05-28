@@ -9,21 +9,21 @@
 }
 
 .button__primary {
-    background-color: $primary;
+    background-color: $background-tertiary;
     border: none;
 
     &:hover:enabled {
-        background-color: $primary-highlight;
+        background-color: $background-tertiary-hightlight;
         color: white;
     }
 }
 
 .button__active {
-    background-color: $primary-active;
+    background-color: $background-tertiary-active;
     color: white;
 
     &:hover:enabled {
-        background-color: $primary-active;
+        background-color: $background-tertiary-active;
         color: white;
     }
 }
@@ -32,15 +32,26 @@
     background: transparent;
     border: none;
     text-decoration: underline;
-    color: $primary-text;
+    color: $text-primary;
 
     &:hover:enabled {
-        color: $primary-text-highlight;
+        color: $text-primary-highlight;
     }
 
     &:disabled {
         color: black;
         cursor: default;
+    }
+}
+
+.button__transparent {
+    background: transparent;
+    border: none;
+    border-radius: 100%;
+
+    &:hover:enabled {
+        background-color: $background-tertiary-hightlight;
+        color: white;
     }
 }
 

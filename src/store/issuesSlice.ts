@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ApiError, IssueDTO, IssueUrlParams } from "../models/";
 import Api from "../api";
+import { showModal } from "./modalSlice";
 
 export interface IssueState {
     issueDTO: IssueDTO;
@@ -23,7 +24,7 @@ const initialState: IssueState = {
     error: { status: 0, message: '', name: '' }
 };
 
-export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (params: IssueUrlParams, { rejectWithValue }) => {
+export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (params: IssueUrlParams, { dispatch }) => {
     try {
         const { user, repository, page, size, forced } = params;
         const result = await Api.searchIssues(user, repository, page, size, forced);
@@ -31,7 +32,7 @@ export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (params:
     }
     catch (err: unknown) {
         const error = err as ApiError;
-        throw rejectWithValue(error.status ? error : { message: "Something went wrong" });
+        dispatch(showModal({ title: `Error ${error.status || ''}`, message: error.message }));
     }
 });
 
