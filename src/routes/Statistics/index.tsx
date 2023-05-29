@@ -26,7 +26,7 @@ export default function Staistics(): JSX.Element {
     };
 
     useEffect(() => {
-        void getStatistics(1, 10);
+        getStatistics(1, 10);
     }, []);
 
     const renderStatistics = (): JSX.Element[] => {

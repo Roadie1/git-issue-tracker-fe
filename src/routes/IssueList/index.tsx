@@ -35,6 +35,9 @@ export default function IssueList(): JSX.Element {
                 {status === 'loading' && (
                     <Loading size={50} />
                 )}
+                {status === 'succeeded' && issuesInfo?.issues.length === 0 && (
+                    <p className='issue-list__not-found'>No issues found in this repository</p>
+                )}
                 {status !== 'failed' && issuesInfo?.issues.length > 0 && (
                     <Pagination onChange={paginationChange} total={issuesInfo.metadata.totalCount} page={issuesInfo.metadata.page} size={issuesInfo.metadata.size}>
                         <ul className="issue-list">

@@ -3,7 +3,6 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './header.styles.scss';
 import { BackArrow, GithubIcon } from '../../icons';
 
-
 export default function Header(): JSX.Element {
     const navigate = useNavigate();
     const location = useLocation();
